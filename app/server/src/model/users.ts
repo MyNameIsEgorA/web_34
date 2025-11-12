@@ -6,7 +6,7 @@ import { UserDTO } from "../data/users.types.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_FILE = path.resolve(__dirname, "../data/users.json");
+const DATA_FILE = path.resolve(__dirname, "../users.json");
 
 export const getAllUsers = async (): Promise<UserDTO[] | undefined> => {
   const data: string = await readFile(DATA_FILE, "utf-8");

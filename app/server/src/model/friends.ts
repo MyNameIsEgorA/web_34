@@ -1,15 +1,15 @@
 import { fileURLToPath } from "url";
 import path from "path";
-import { FriendRelation } from "../data/friends.types.js";
-import { readFile } from "fs/promises";
+import { FriendRelationDTO } from "../data/friends.types.js";
+import { readFile, writeFile } from "fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_FILE = path.resolve(__dirname, "../data/friends.json");
+const DATA_FILE = path.resolve(__dirname, "../friends.json");
 
 export const getAllFriendsRelations = async (): Promise<
-  FriendRelation[] | null
+  FriendRelationDTO[] | null
 > => {
   try {
     const data: string | undefined = await readFile(DATA_FILE, "utf-8");
@@ -22,8 +22,8 @@ export const getAllFriendsRelations = async (): Promise<
 
 export const getFriendsRelationById = async (
   relationId: number,
-): Promise<FriendRelation | null> => {
-  const relations: FriendRelation[] | null = await getAllFriendsRelations();
+): Promise<FriendRelationDTO | null> => {
+  const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
   if (!relations) {
     return null;
   }
@@ -34,7 +34,7 @@ export const getAllUsersFriendsIds = async (
   userId: number,
 ): Promise<number[]> => {
   const friendsIds: number[] = [];
-  const relations: FriendRelation[] | null = await getAllFriendsRelations();
+  const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
   if (!relations) {
     return friendsIds;
   }
@@ -46,4 +46,27 @@ export const getAllUsersFriendsIds = async (
     }
   });
   return friendsIds;
+};
+
+export const addFriend = async (
+  firstUserId: number,
+  secondUserId: number,
+): Promise<FriendRelationDTO | null> => {
+  const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
+  if (!relations) {
+    return null;
+  }
+  const newRelation: FriendRelationDTO = {
+    id: relations.length + 1,
+    first_user_id: firstUserId,
+    second_user_id: secondUserId,
+  };
+  relations.push(newRelation);
+  try {
+    await writeFile(DATA_FILE, JSON.stringify(relations, null, 2));
+    return newRelation;
+  } catch (e) {
+    console.warn(e);
+    return null;
+  }
 };

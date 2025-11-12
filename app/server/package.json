@@ -4,7 +4,7 @@
   "description": "Anakhin Egor lb3",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc && copyfiles -u 1 src/data/users.json dist/",
+    "build": "tsc && copyfiles -u 2 \"src/data/users.json\" \"src/data/friends.json\" dist/",
     "start": "node dist/server.js",
     "dev": "npm run build && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
