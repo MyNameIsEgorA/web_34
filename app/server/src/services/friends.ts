@@ -1,10 +1,12 @@
 import { injectable } from "tsyringe";
 import { UserDTO } from "../data/users.types.js";
 import {
-  getAllFriendsRelations,
+  addFriend,
+  doesRelationExists,
   getAllUsersFriendsIds,
 } from "../model/friends.js";
-import { getAllUsers } from "../model/users.js";
+import { getAllUsers, getUserById } from "../model/users.js";
+import { FriendRelationDTO } from "../data/friends.types.js";
 
 @injectable()
 export class FriendsService {
@@ -24,5 +26,28 @@ export class FriendsService {
       }
     });
     return Array.from(friends);
+  };
+
+  addFriendship = async (
+    firstUserId: number,
+    secondUserId: number,
+  ): Promise<FriendRelationDTO | null> => {
+    const firstUser: UserDTO | null = await getUserById(firstUserId);
+    const secondUser: UserDTO | null = await getUserById(secondUserId);
+
+    if (!firstUser || !secondUser) {
+      return null;
+    }
+
+    const isRelationCreated: boolean = await doesRelationExists(
+      firstUserId,
+      secondUserId,
+    );
+
+    if (isRelationCreated) {
+      return null;
+    }
+
+    return await addFriend(firstUserId, secondUserId);
   };
 }

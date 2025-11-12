@@ -17,15 +17,32 @@ export const getAllFriendsRelations = async () => {
 export const getFriendsRelationById = async (relationId) => {
     const relations = await getAllFriendsRelations();
     if (!relations) {
-        return null;
+        throw new Error("Could not get friends relations");
     }
     return relations.find((r) => r.id === relationId) || null;
+};
+export const doesRelationExists = async (firstUserId, secondUserId) => {
+    const relations = await getAllFriendsRelations();
+    if (!relations) {
+        throw new Error("Could not get friends relations");
+    }
+    for (const relation of relations) {
+        if (relation.first_user_id === firstUserId &&
+            relation.second_user_id === secondUserId) {
+            return true;
+        }
+        if (relation.second_user_id === firstUserId &&
+            relation.first_user_id === secondUserId) {
+            return true;
+        }
+    }
+    return false;
 };
 export const getAllUsersFriendsIds = async (userId) => {
     const friendsIds = [];
     const relations = await getAllFriendsRelations();
     if (!relations) {
-        return friendsIds;
+        throw new Error("Could not get friends relations");
     }
     relations.forEach((relation) => {
         if (relation.first_user_id === userId) {
@@ -40,7 +57,7 @@ export const getAllUsersFriendsIds = async (userId) => {
 export const addFriend = async (firstUserId, secondUserId) => {
     const relations = await getAllFriendsRelations();
     if (!relations) {
-        return null;
+        throw new Error("Could not get friends relations");
     }
     const newRelation = {
         id: relations.length + 1,

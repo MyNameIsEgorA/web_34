@@ -5,8 +5,13 @@
     "second_user_id": 2
   },
   {
-    "id":  2,
+    "id": 2,
     "first_user_id": 1,
+    "second_user_id": 3
+  },
+  {
+    "id": 3,
+    "first_user_id": 2,
     "second_user_id": 3
   }
 ]

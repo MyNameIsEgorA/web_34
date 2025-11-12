@@ -25,9 +25,34 @@ export const getFriendsRelationById = async (
 ): Promise<FriendRelationDTO | null> => {
   const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
   if (!relations) {
-    return null;
+    throw new Error("Could not get friends relations");
   }
   return relations.find((r) => r.id === relationId) || null;
+};
+
+export const doesRelationExists = async (
+  firstUserId: number,
+  secondUserId: number,
+): Promise<boolean> => {
+  const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
+  if (!relations) {
+    throw new Error("Could not get friends relations");
+  }
+  for (const relation of relations) {
+    if (
+      relation.first_user_id === firstUserId &&
+      relation.second_user_id === secondUserId
+    ) {
+      return true;
+    }
+    if (
+      relation.second_user_id === firstUserId &&
+      relation.first_user_id === secondUserId
+    ) {
+      return true;
+    }
+  }
+  return false;
 };
 
 export const getAllUsersFriendsIds = async (
@@ -36,7 +61,7 @@ export const getAllUsersFriendsIds = async (
   const friendsIds: number[] = [];
   const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
   if (!relations) {
-    return friendsIds;
+    throw new Error("Could not get friends relations");
   }
   relations.forEach((relation) => {
     if (relation.first_user_id === userId) {
@@ -54,7 +79,7 @@ export const addFriend = async (
 ): Promise<FriendRelationDTO | null> => {
   const relations: FriendRelationDTO[] | null = await getAllFriendsRelations();
   if (!relations) {
-    return null;
+    throw new Error("Could not get friends relations");
   }
   const newRelation: FriendRelationDTO = {
     id: relations.length + 1,
