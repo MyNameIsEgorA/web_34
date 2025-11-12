@@ -1,0 +1,22 @@
+{
+  "name": "web_3",
+  "version": "1.0.0",
+  "description": "Anakhin Egor lb3",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc && copyfiles -u 1 src/data/users.json dist/",
+    "start": "node dist/server.js",
+    "dev": "npm run build && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Egor Anakhin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "copyfiles": "^2.4.1"
+  }
+}

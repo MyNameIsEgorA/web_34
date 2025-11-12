@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "New name",
+    "birthDate": "New birth Date",
+    "email": "Email through put_1",
+    "avatar": "New avatar",
+    "role": "admin",
+    "status": "inactive",
+    "password": "Password new"
+  },
+  {
+    "id": 2,
+    "name": "NOАнахин Егор Дмитриевич",
+    "birthDate": "10.08.2005",
+    "email": "Anakhin2005@gmail.com",
+    "avatar": null,
+    "role": "user",
+    "status": "active",
+    "password": "Password10"
+  },
+  {
+    "id": 3,
+    "name": "Alex",
+    "birthDate": "10.08.2004",
+    "email": "Alex@gmail.com",
+    "avatar": null,
+    "role": "user",
+    "status": "inactive",
+    "password": "Password10"
+  }
+]
