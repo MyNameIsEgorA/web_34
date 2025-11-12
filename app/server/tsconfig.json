@@ -18,7 +18,9 @@
     /* 4. Настройки совместимости */
     "esModuleInterop": true,         /* Обеспечивает совместимость импорта CommonJS как ES Modules (для express) */
     "resolveJsonModule": true,       /* Разрешает импорт .json файлов */
-    "allowSyntheticDefaultImports": true /* Разрешает импорт по умолчанию из модулей без экспорта по умолчанию */
+    "allowSyntheticDefaultImports": true, /* Разрешает импорт по умолчанию из модулей без экспорта по умолчанию */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   
   /* 5. Какие файлы компилировать */

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { friendRouter, userRouter } from "./routes/index.js";
 import express from "express";
 const app = express();
